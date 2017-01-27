@@ -71,11 +71,6 @@ func LoginUsersp(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("401 HTTP status code returned!"))
 		}
-		// if signed {
-		// 	http.Redirect(w, r, "/profile", 302)
-		// } else {
-		// 	fmt.Fprintln(w, "Not Valid")
-		// }
 	}
 }
 
