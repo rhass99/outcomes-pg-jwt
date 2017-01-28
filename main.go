@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/rhass99/outcomes/api"
+	"github.com/rhass99/outcomes-pg-jwt/api"
 	"net/http"
 )
 
