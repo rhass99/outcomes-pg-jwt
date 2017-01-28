@@ -6,15 +6,25 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
+	"os"
+	_"log"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "rami"
-	password = "ramihassanein"
-	dbname   = "outcomes"
-)
+type dbconn struct {
+	host 	string 
+	port    string
+	user     string
+	password string
+	dbname   string
+}
+
+var newdbconn = &dbconn{
+	host: os.Getenv("PGHOST"),
+	port: os.Getenv("PGPORT"),
+	user: os.Getenv("PGUSER"),
+	password: os.Getenv("PGPASS"),
+	dbname: os.Getenv("PGDBNAME"),
+}
 
 type Usersp struct {
 	Id           int
@@ -29,7 +39,9 @@ type Usersp struct {
 }
 
 func DBConnect() (*sql.DB, error) {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable", host, port, user, dbname, password)
+	
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", newdbconn.host, newdbconn.port, newdbconn.user, newdbconn.dbname, newdbconn.password)
+	//log.Println(psqlInfo)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		return nil, err

@@ -1,9 +1,10 @@
 package api
 
+//JWT
 import (
 	//"fmt"
 	"github.com/gorilla/sessions"
-	"github.com/rhass99/outcomes/storage"
+	"github.com/rhass99/outcomes-pg-jwt/storage"
 	"log"
 	"net/http"
 	"text/template"

@@ -1,9 +1,10 @@
 package main
 
 import (
+	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
-	"github.com/rhass99/outcomes/api"
-	"net/http"
+	"github.com/rhass99/outcomes-pg-jwt/api"
+	_ "net/http"
 )
 
 func main() {
@@ -11,5 +12,7 @@ func main() {
 	r.HandleFunc("/signup", api.SignupUsersp)
 	r.HandleFunc("/login", api.LoginUsersp)
 	r.HandleFunc("/profile", api.ProfileUserspGet)
-	http.ListenAndServe(":8080", r)
+	n := negroni.Classic()
+	n.UseHandler(r)
+	n.Run(":8080")
 }

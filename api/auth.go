@@ -5,7 +5,7 @@ import (
 	//"fmt"
 	"github.com/gorilla/schema"
 	_ "github.com/lib/pq"
-	"github.com/rhass99/outcomes/storage"
+	"github.com/rhass99/outcomes-pg-jwt/storage"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
