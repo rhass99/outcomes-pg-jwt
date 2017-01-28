@@ -1,6 +1,5 @@
 package api
 
-//JWT
 import (
 	//"fmt"
 	"github.com/gorilla/sessions"
