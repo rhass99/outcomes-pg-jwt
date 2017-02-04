@@ -1,18 +1,23 @@
 package main
 
 import (
-	"github.com/codegangsta/negroni"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/justinas/alice"
 	"github.com/rhass99/outcomes-pg-jwt/api"
-	_ "net/http"
+	"net/http"
+	"os"
 )
+
+func loggingHandler(next http.Handler) http.Handler {
+	return handlers.LoggingHandler(os.Stdout, next)
+}
 
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/signup", api.SignupUsersp)
-	r.HandleFunc("/login", api.LoginUsersp)
-	r.HandleFunc("/profile", api.ProfileUserspGet)
-	n := negroni.Classic()
-	n.UseHandler(r)
-	n.Run(":8080")
+	commonHandlers := alice.New(loggingHandler)
+	r.Handle("/signup", commonHandlers.ThenFunc(api.SignupUsersp))
+	r.Handle("/login", commonHandlers.ThenFunc(api.LoginUsersp))
+	r.Handle("/profile", commonHandlers.ThenFunc(api.ProfileUserspGet))
+	http.ListenAndServe(":8080", r)
 }
